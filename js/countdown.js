@@ -127,16 +127,15 @@ const TTE_COUNTDOWN = {
 
       const status = this.getTatkalStatus();
 
-      if (statusTagEl && digitsEl) {
+      if (digitsEl) {
         if (status.isOpenNow) {
-          statusTagEl.className = 'countdown-tag tag-active';
-          statusTagEl.innerHTML = '● LIVE NOW';
-          digitsEl.textContent = status.targetLabel;
+          digitsEl.innerHTML = `<span class="status-live-indicator">●</span> <strong>${status.targetLabel}</strong>`;
         } else {
-          statusTagEl.className = 'countdown-tag tag-waiting';
-          statusTagEl.innerHTML = '⏱ COUNTDOWN';
-          digitsEl.innerHTML = `${status.targetLabel} <span style="color:#60a5fa;margin-left:0.25rem;">${this.formatDuration(status.diffMs)}</span>`;
+          digitsEl.innerHTML = `<span>${status.targetLabel}</span> <strong class="countdown-time">${this.formatDuration(status.diffMs)}</strong>`;
         }
+      }
+      if (statusTagEl) {
+        statusTagEl.style.display = 'none';
       }
     };
 

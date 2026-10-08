@@ -4,7 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Privacy Policy | Tatkal Ticket Cost Estimator</title>
-  <meta name="description" content="Privacy Policy for TatkalCost. Learn how we prioritize client-side privacy, collect zero PII, and comply with DPDP Act 2023 and Google AdSense guidelines.">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="css/tokens.css">
   <link rel="stylesheet" href="css/main.css">
   <link rel="stylesheet" href="css/responsive.css">
@@ -13,72 +15,75 @@
 
   <header class="site-header">
     <div class="container nav-wrap">
-      <a href="index.html" class="brand-logo">
-        <div class="brand-icon">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+      <a href="index.html" class="brand-logo" aria-label="TatkalCost Home">
+        <div class="brand-symbol" aria-hidden="true">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
             <rect x="4" y="3" width="16" height="16" rx="2"></rect>
             <path d="M4 11h16"></path>
+            <path d="M12 3v8"></path>
+            <path d="m8 19-2 3"></path>
+            <path d="m18 22-2-3"></path>
+            <circle cx="8" cy="15" r="1"></circle>
+            <circle cx="16" cy="15" r="1"></circle>
           </svg>
         </div>
-        <span>TatkalCost</span>
+        <div class="brand-title-wrap">
+          <span class="brand-title">TatkalCost</span>
+          <span class="brand-tagline">Rail Settlement Estimator</span>
+        </div>
       </a>
       <div class="nav-actions">
-        <a href="index.html" class="nav-link">← Back to Calculator</a>
+        <a href="index.html" class="nav-link" style="color:var(--accent-primary);font-weight:700;">← Back to Calculator</a>
       </div>
     </div>
   </header>
 
-  <main class="container" style="padding-top: 3rem; padding-bottom: 5rem; max-width: 800px;">
-    <h1 style="font-size: 2.25rem; font-weight: 800; margin-bottom: 1rem;">Privacy Policy</h1>
-    <p style="color: var(--text-dim); margin-bottom: 2rem;">Effective Date: 8 October 2026</p>
+  <main class="container" style="padding-top: var(--space-8); padding-bottom: var(--space-12); max-width: 820px;">
+    <div style="margin-bottom: var(--space-6);">
+      <h1 style="font-size: var(--text-3xl); font-weight: 800; margin-bottom: var(--space-1);">Privacy Policy</h1>
+      <p style="color: var(--text-tertiary); font-size: var(--text-xs);">Effective Date: 8 October 2026</p>
+    </div>
 
-    <div class="guide-card" style="margin-bottom: 2rem;">
+    <div class="guide-card" style="margin-bottom: var(--space-5);">
       <h3>1. Commitment to Zero Personal Data Collection</h3>
       <p>
-        At <strong>TatkalCost</strong> (accessible at tatkalcost.in), we adhere strictly to a <strong>privacy-by-design</strong> architecture. We do not require account registration, login credentials, email addresses, phone numbers, Aadhaar details, PAN details, or IRCTC account information.
+        At <strong>TatkalCost</strong> (accessible at tatkalcost.in), we adhere strictly to a <strong>privacy-by-design</strong> architecture. We do not require account registration, login credentials, email addresses, phone numbers, Aadhaar details, PAN details, or IRCTC account credentials.
       </p>
       <p>
         All inputs provided into the calculation engine (such as travel class, passenger count, ticket fares, and current wallet balances) are processed <strong>entirely inside your browser's local memory</strong> and are never transmitted to, stored on, or harvested by any remote server.
       </p>
     </div>
 
-    <div class="guide-card" style="margin-bottom: 2rem;">
+    <div class="guide-card" style="margin-bottom: var(--space-5);">
       <h3>2. Digital Personal Data Protection (DPDP) Act, 2023 Compliance</h3>
       <p>
         In compliance with India's Digital Personal Data Protection Act (DPDP Act, 2023), TatkalCost acts exclusively as a passive informational utility. Because we collect zero personally identifiable information (PII), we do not process, monetize, or transfer personal records to any data fiduciary or third-party entity.
       </p>
     </div>
 
-    <div class="guide-card" style="margin-bottom: 2rem;">
+    <div class="guide-card" style="margin-bottom: var(--space-5);">
       <h3>3. Google AdSense & Third-Party Advertising Cookies</h3>
       <p>
         We may display advertisements provided by Google AdSense to fund our hosting infrastructure. Google, as a third-party vendor, uses cookies to serve ads based on a user's prior visits to this and other websites.
       </p>
       <ul class="guide-list">
         <li>Google's use of advertising cookies enables it and its partners to serve ads based on your visit to our sites and/or other sites on the Internet.</li>
-        <li>Users may opt out of personalized advertising by visiting <a href="https://www.google.com/settings/ads" target="_blank" rel="noopener noreferrer" style="color: #60a5fa;">Google Ads Settings</a>.</li>
-        <li>Alternatively, users can opt out of third-party vendor cookies by visiting <a href="https://www.aboutads.info" target="_blank" rel="noopener noreferrer" style="color: #60a5fa;">aboutads.info</a>.</li>
+        <li>Users may opt out of personalized advertising by visiting Google Ads Settings.</li>
+        <li>Alternatively, users can opt out of third-party vendor cookies by visiting aboutads.info.</li>
       </ul>
     </div>
 
-    <div class="guide-card" style="margin-bottom: 2rem;">
-      <h3>4. Log Files & Anonymous Analytics</h3>
-      <p>
-        Like standard web platforms, our CDN edge provider (Cloudflare / Vercel) logs anonymous diagnostic access information (such as internet protocol addresses, browser user-agent strings, referring pages, and access timestamps) for security filtering, DDoS prevention, and uptime monitoring. These logs do not identify individual users.
-      </p>
-    </div>
-
     <div class="guide-card">
-      <h3>5. Contact Us Regarding Privacy</h3>
+      <h3>4. Contact the Data Custodian</h3>
       <p>
-        If you have questions regarding this Privacy Policy, please reach out via our <a href="contact.html" style="color: #60a5fa;">Contact Page</a>.
+        If you have any questions or inquiries concerning our privacy standards, you may contact the maintainers via our dedicated <a href="contact.html">contact page</a>.
       </p>
     </div>
   </main>
 
   <footer class="site-footer">
     <div class="container footer-nav">
-      <div>© 2026 TatkalCost. All rights reserved.</div>
+      <div>© 2026 TatkalCost. All rights reserved. Client-side privacy guaranteed.</div>
       <div class="footer-links">
         <a href="index.html">Calculator</a>
         <a href="privacy.html">Privacy Policy</a>

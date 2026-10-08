@@ -4,7 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Terms of Service & Disclaimer | Tatkal Ticket Cost Estimator</title>
-  <meta name="description" content="Terms of Service, Disclaimer, and Non-Affiliation Notice for TatkalCost.">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="css/tokens.css">
   <link rel="stylesheet" href="css/main.css">
   <link rel="stylesheet" href="css/responsive.css">
@@ -13,30 +15,42 @@
 
   <header class="site-header">
     <div class="container nav-wrap">
-      <a href="index.html" class="brand-logo">
-        <div class="brand-icon">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+      <a href="index.html" class="brand-logo" aria-label="TatkalCost Home">
+        <div class="brand-symbol" aria-hidden="true">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
             <rect x="4" y="3" width="16" height="16" rx="2"></rect>
             <path d="M4 11h16"></path>
+            <path d="M12 3v8"></path>
+            <path d="m8 19-2 3"></path>
+            <path d="m18 22-2-3"></path>
+            <circle cx="8" cy="15" r="1"></circle>
+            <circle cx="16" cy="15" r="1"></circle>
           </svg>
         </div>
-        <span>TatkalCost</span>
+        <div class="brand-title-wrap">
+          <span class="brand-title">TatkalCost</span>
+          <span class="brand-tagline">Rail Settlement Estimator</span>
+        </div>
       </a>
       <div class="nav-actions">
-        <a href="index.html" class="nav-link">← Back to Calculator</a>
+        <a href="index.html" class="nav-link" style="color:var(--accent-primary);font-weight:700;">← Back to Calculator</a>
       </div>
     </div>
   </header>
 
-  <main class="container" style="padding-top: 3rem; padding-bottom: 5rem; max-width: 800px;">
-    <h1 style="font-size: 2.25rem; font-weight: 800; margin-bottom: 1rem;">Terms of Service & Statutory Disclaimer</h1>
-    <p style="color: var(--text-dim); margin-bottom: 2rem;">Last Updated: 8 October 2026</p>
-
-    <div class="alert-box alert-warning" style="margin-bottom: 2rem;">
-      ⚖️ <strong>Independent Public Service:</strong> TatkalCost is not affiliated with, authorized, endorsed, or partnered with IRCTC, Indian Railways, or CRIS.
+  <main class="container" style="padding-top: var(--space-8); padding-bottom: var(--space-12); max-width: 820px;">
+    <div style="margin-bottom: var(--space-6);">
+      <h1 style="font-size: var(--text-3xl); font-weight: 800; margin-bottom: var(--space-1);">Terms of Service & Statutory Disclaimer</h1>
+      <p style="color: var(--text-tertiary); font-size: var(--text-xs);">Last Updated: 8 October 2026</p>
     </div>
 
-    <div class="guide-card" style="margin-bottom: 2rem;">
+    <div class="alert-box alert-warning" style="margin-bottom: var(--space-5);">
+      <div>
+        <strong>Independent Public Utility:</strong> TatkalCost is not affiliated with, authorized by, endorsed by, or partnered with IRCTC, Indian Railways, or CRIS.
+      </div>
+    </div>
+
+    <div class="guide-card" style="margin-bottom: var(--space-5);">
       <h3>1. Informational Estimation Nature of the Tool</h3>
       <p>
         The calculations provided on TatkalCost (including eWallet top-up figures, convenience fee calculations, and payment gateway breakdowns) are computed based on published public railway circulars and fee schedules. They are intended strictly as <strong>advisory estimates</strong>.
@@ -46,7 +60,7 @@
       </p>
     </div>
 
-    <div class="guide-card" style="margin-bottom: 2rem;">
+    <div class="guide-card" style="margin-bottom: var(--space-5);">
       <h3>2. Compliance with the Railways Act, 1989 (Section 143)</h3>
       <p>
         Section 143 of the Railways Act, 1989 prohibits unauthorized businesses of procuring, transferring, or selling railway tickets. TatkalCost explicitly states that:
@@ -55,28 +69,21 @@
         <li>This platform does <strong>not</strong> sell, resell, hold, or procure railway tickets.</li>
         <li>This platform does <strong>not</strong> automate railway booking forms, CAPTCHA fields, or passenger registration.</li>
         <li>No booking fees or ticket commission charges are levied.</li>
-        <li>All ticket purchases must be executed directly by the individual passenger on official railway booking channels (<a href="https://www.irctc.co.in" target="_blank" rel="noopener noreferrer" style="color: #60a5fa;">irctc.co.in</a> or UTS mobile apps).</li>
+        <li>All ticket purchases must be executed directly by the individual passenger on official railway booking channels (<a href="https://www.irctc.co.in" target="_blank" rel="noopener noreferrer">irctc.co.in</a> or UTS mobile apps).</li>
       </ul>
     </div>
 
-    <div class="guide-card" style="margin-bottom: 2rem;">
+    <div class="guide-card">
       <h3>3. Limitation of Liability</h3>
       <p>
-        Under no circumstances shall TatkalCost, its creators, or contributors be held liable for any failed bookings, lost seats, financial shortfalls, banking downtime, or inadvertent discrepancies resulting from the use of this calculator.
-      </p>
-    </div>
-
-    <div class="guide-card">
-      <h3>4. Intellectual Property & Trademarks</h3>
-      <p>
-        "IRCTC", "Indian Railways", "CRIS", and their respective train class names are trademarks or registered trademarks of their respective governing authorities. Their mention on this website is made solely for descriptive, comparative, and nominative fair-use purposes.
+        Under no circumstances shall the authors or maintainers of TatkalCost be liable for any direct, indirect, incidental, or consequential damages resulting from unsuccessful ticket bookings, payment gateway timeouts, fund lock-in on third-party wallets, or missed trains.
       </p>
     </div>
   </main>
 
   <footer class="site-footer">
     <div class="container footer-nav">
-      <div>© 2026 TatkalCost. All rights reserved.</div>
+      <div>© 2026 TatkalCost. All rights reserved. Client-side privacy guaranteed.</div>
       <div class="footer-links">
         <a href="index.html">Calculator</a>
         <a href="privacy.html">Privacy Policy</a>

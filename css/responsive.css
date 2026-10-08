@@ -1,125 +1,151 @@
 /**
- * responsive.css - Media Queries & Mobile Optimizations
- * Mobile-first adjustments for small screens (375px), tablets (768px), and desktops.
+ * responsive.css - Responsive Breakpoints & Adaptive Layouts
+ * Mobile-First & Precision Density across Viewports (375px, 768px, 1024px, 1280px)
  */
 
-/* Tablets & Small Desktops (max-width: 960px) */
-@media (max-width: 960px) {
-  .calculator-grid {
+/* ==========================================================================
+   TABLET & SMALL DESKTOP BREAKPOINTS (max-width: 1024px)
+   ========================================================================== */
+@media (max-width: 1024px) {
+  .calculator-terminal {
     grid-template-columns: 1fr;
-    gap: 1.75rem;
+    gap: var(--space-6);
   }
 
   .guide-grid {
     grid-template-columns: 1fr;
-    gap: 1.5rem;
+    gap: var(--space-5);
   }
 }
 
-/* Mobile Devices (max-width: 640px) */
-@media (max-width: 640px) {
+/* ==========================================================================
+   MOBILE & TABLET PORTRAIT (max-width: 768px)
+   ========================================================================== */
+@media (max-width: 768px) {
   .container {
-    padding: 0 1rem;
-  }
-
-  .site-header {
-    height: auto;
+    padding: 0 var(--space-4);
   }
 
   .nav-wrap {
     height: 3.75rem;
   }
 
-  .brand-logo {
-    font-size: 1.1rem;
-  }
-
-  .brand-badge {
+  .brand-tagline {
     display: none;
   }
 
-  .ist-pill {
-    padding: 0.3rem 0.65rem;
-    font-size: 0.75rem;
+  .nav-links {
+    display: none; /* Keep header clean, users focus on tool */
+  }
+
+  .tatkal-ticker {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-1);
+  }
+
+  .ticker-note {
+    font-size: var(--text-2xs);
   }
 
   .hero-section {
-    padding: 2rem 0 1.5rem;
+    padding: var(--space-6) 0 var(--space-5);
   }
 
   .hero-title {
-    font-size: 1.75rem;
+    font-size: 1.65rem;
   }
 
   .hero-subtitle {
-    font-size: 0.9375rem;
+    font-size: var(--text-sm);
   }
 
-  .app-card {
-    padding: 1.25rem;
+  .terminal-panel,
+  .voucher-panel {
+    padding: var(--space-4);
     border-radius: var(--radius-lg);
   }
 
-  .class-pills {
-    grid-template-columns: repeat(4, 1fr);
-    gap: 0.35rem;
+  .class-pills-row {
+    grid-template-columns: repeat(5, 1fr);
+    gap: 4px;
+  }
+
+  .class-pills-row.non-ac {
+    grid-template-columns: repeat(2, 1fr);
   }
 
   .class-pill-label {
-    padding: 0.5rem 0.15rem;
+    padding: 0.5rem 2px;
   }
 
   .pill-code {
-    font-size: 0.875rem;
+    font-size: var(--text-sm);
   }
 
   .pill-type {
-    font-size: 0.625rem;
-  }
-
-  .passenger-stepper {
-    max-width: 100%;
-  }
-
-  .result-hero-box {
-    padding: 1.25rem;
+    font-size: 9px;
   }
 
   .result-hero-amount {
-    font-size: 2.25rem;
+    font-size: 2.35rem;
   }
 
-  .section-title {
-    font-size: 1.35rem;
-  }
-
-  .matrix-table th, .matrix-table td {
-    padding: 0.75rem 0.875rem;
-    font-size: 0.8125rem;
+  .matrix-table th,
+  .matrix-table td {
+    padding: 0.75rem var(--space-3);
+    font-size: var(--text-xs);
   }
 
   .footer-nav {
     flex-direction: column;
     align-items: flex-start;
-    gap: 1rem;
+    gap: var(--space-3);
   }
 
   .footer-links {
     flex-wrap: wrap;
-    gap: 1rem;
+    gap: var(--space-3);
   }
 
   .toast-notice {
-    bottom: 1rem;
-    right: 1rem;
-    left: 1rem;
+    bottom: var(--space-4);
+    left: var(--space-4);
+    right: var(--space-4);
     justify-content: center;
   }
 }
 
-/* Very Small Screens (max-width: 380px) */
-@media (max-width: 380px) {
-  .class-pills {
+/* ==========================================================================
+   COMPACT SMARTPHONES (max-width: 480px)
+   ========================================================================== */
+@media (max-width: 480px) {
+  .class-pills-row {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .class-pills-row.non-ac {
     grid-template-columns: repeat(2, 1fr);
   }
+
+  .stepper-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-2);
+  }
+
+  .passenger-stepper {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .step-btn {
+    flex: 1;
+  }
+
+  .step-value {
+    flex: 1;
+  }
+
+
 }

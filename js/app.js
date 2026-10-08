@@ -1,5 +1,6 @@
 /**
  * app.js - State Management, UI Event Binding, and Reactive DOM Updates
+ * Tatkal Ticket Cost Estimator (TTE)
  */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -21,6 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const baseFareInput = document.getElementById('base-fare-input');
   const walletBalInput = document.getElementById('wallet-bal-input');
   const insuranceToggle = document.getElementById('insurance-toggle');
+  const quickChips = document.querySelectorAll('.quick-chip');
 
   // DOM Elements - Outputs (Top-up Hero)
   const resTopUpAmount = document.getElementById('res-topup-amount');
@@ -35,11 +37,17 @@ document.addEventListener('DOMContentLoaded', () => {
   const bConvenience = document.getElementById('breakdown-convenience-fee');
   const bWalletFee = document.getElementById('breakdown-wallet-fee');
   const bTotalPayable = document.getElementById('breakdown-total-payable');
+  const bPaxCount = document.getElementById('breakdown-pax-count');
 
   // DOM Elements - Matrix
   const matrixTbody = document.getElementById('matrix-tbody');
 
-  // Initialize IST Countdown
+  // Always pure light mode per user preference
+  document.documentElement.removeAttribute('data-theme');
+
+  // ==========================================================================
+  // INITIALIZE IST COUNTDOWN & CLOCK
+  // ==========================================================================
   const istClock = document.getElementById('ist-clock');
   const statusTag = document.getElementById('tatkal-status-tag');
   const digitsEl = document.getElementById('tatkal-countdown-digits');
@@ -75,16 +83,17 @@ document.addEventListener('DOMContentLoaded', () => {
     );
 
     // 1. Update Breakdown Table
-    bTicketFare.textContent = formatINR(ewalletData.ticketFare);
-    bInsurance.textContent = formatINR(ewalletData.insurance);
-    bConvenience.textContent = formatINR(ewalletData.convenienceFee);
-    bWalletFee.textContent = formatINR(ewalletData.walletBookingFee);
-    bTotalPayable.textContent = formatINR(ewalletData.totalPayable);
+    if (bPaxCount) bPaxCount.textContent = state.passengers;
+    if (bTicketFare) bTicketFare.textContent = formatINR(ewalletData.ticketFare);
+    if (bInsurance) bInsurance.textContent = formatINR(ewalletData.insurance);
+    if (bConvenience) bConvenience.textContent = formatINR(ewalletData.convenienceFee);
+    if (bWalletFee) bWalletFee.textContent = formatINR(ewalletData.walletBookingFee);
+    if (bTotalPayable) bTotalPayable.textContent = formatINR(ewalletData.totalPayable);
 
     // 2. Update Top-Up Hero Display & Alerts
     if (state.baseFare <= 0) {
       resTopUpAmount.textContent = '₹0';
-      resTopUpNote.textContent = 'Please enter ticket fare shown on IRCTC';
+      resTopUpNote.textContent = 'Enter ticket fare shown on IRCTC availability screen.';
       resAlertBox.style.display = 'none';
       if (copyBtn) copyBtn.style.display = 'none';
     } else if (ewalletData.exceedsMaxBalance) {
@@ -92,21 +101,21 @@ document.addEventListener('DOMContentLoaded', () => {
       resTopUpNote.textContent = 'Deposit required for this booking';
       resAlertBox.className = 'alert-box alert-danger';
       resAlertBox.style.display = 'flex';
-      resAlertBox.innerHTML = `⚠️ <strong>Exceeds IRCTC eWallet Limit:</strong> Maximum wallet balance allowed is ₹10,000. Total payable is ${formatINR(ewalletData.totalPayable)}. Consider paying directly via UPI or Credit Card.`;
+      resAlertBox.innerHTML = `<div><strong>Exceeds IRCTC eWallet Limit:</strong> Maximum wallet balance allowed by IRCTC is ₹10,000. Total payable is ${formatINR(ewalletData.totalPayable)}. Pay directly via UPI or Credit Card.</div>`;
       if (copyBtn) copyBtn.style.display = 'inline-flex';
     } else if (ewalletData.isSufficient) {
       resTopUpAmount.textContent = '₹0';
       resTopUpNote.textContent = 'No deposit needed! Your eWallet has sufficient funds.';
       resAlertBox.className = 'alert-box alert-success';
       resAlertBox.style.display = 'flex';
-      resAlertBox.innerHTML = `✅ <strong>Sufficient Balance:</strong> Your available balance of ${formatINR(state.currentWalletBal)} fully covers the ${formatINR(ewalletData.totalPayable)} total.`;
+      resAlertBox.innerHTML = `<div><strong>Sufficient Balance:</strong> Your available balance of ${formatINR(state.currentWalletBal)} fully covers the ${formatINR(ewalletData.totalPayable)} total.</div>`;
       if (copyBtn) copyBtn.style.display = 'none';
     } else {
       resTopUpAmount.textContent = formatINRRup(ewalletData.recommendedSlabTopUp);
       resTopUpNote.textContent = `Shortfall is ${formatINR(ewalletData.rawShortfall)}. Rounded to nearest valid ₹100 deposit slab (Leftover: ${formatINR(ewalletData.postBookingLeftover)}).`;
       resAlertBox.className = 'alert-box alert-warning';
       resAlertBox.style.display = 'flex';
-      resAlertBox.innerHTML = `💡 <strong>Top-Up Advice:</strong> Deposit via UPI on IRCTC to avoid payment gateway fees during eWallet recharge.`;
+      resAlertBox.innerHTML = `<div><strong>Top-Up Protocol:</strong> Recharge your eWallet via UPI on the official IRCTC portal before 09:55 AM or 10:55 AM to avoid gateway charges during wallet load.</div>`;
       if (copyBtn) copyBtn.style.display = 'inline-flex';
     }
 
@@ -118,25 +127,27 @@ document.addEventListener('DOMContentLoaded', () => {
       state.optInsurance
     );
 
-    matrixTbody.innerHTML = '';
-    matrix.forEach(mode => {
-      const tr = document.createElement('tr');
-      const badgeHtml = mode.recommendationBadge
-        ? `<span class="matrix-badge ${mode.id === 'ewallet' ? 'badge-blue' : 'badge-green'}">${mode.recommendationBadge}</span>`
-        : `<span style="color:var(--text-dim);font-size:0.75rem;">${mode.speedRating}</span>`;
+    if (matrixTbody) {
+      matrixTbody.innerHTML = '';
+      matrix.forEach(mode => {
+        const tr = document.createElement('tr');
+        const badgeHtml = mode.recommendationBadge
+          ? `<span class="matrix-recommendation ${mode.id === 'ewallet' ? 'rec-blue' : 'rec-green'}">${mode.recommendationBadge}</span>`
+          : `<span class="matrix-speed-text">${mode.speedRating}</span>`;
 
-      tr.innerHTML = `
-        <td>
-          <div class="matrix-mode-name">
-            ${mode.name}
-          </div>
-        </td>
-        <td><strong class="matrix-total">${formatINR(mode.totalPayable)}</strong></td>
-        <td>${formatINR(mode.extraCharges)}</td>
-        <td>${badgeHtml}</td>
-      `;
-      matrixTbody.appendChild(tr);
-    });
+        tr.innerHTML = `
+          <td>
+            <div class="matrix-mode-name">
+              ${mode.name}
+            </div>
+          </td>
+          <td><strong class="matrix-total">${formatINR(mode.totalPayable)}</strong></td>
+          <td>${formatINR(mode.extraCharges)}</td>
+          <td>${badgeHtml}</td>
+        `;
+        matrixTbody.appendChild(tr);
+      });
+    }
   };
 
   // Event Listeners - Travel Class Selector
@@ -150,38 +161,59 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // Event Listeners - Passenger Stepper (Bounded strictly to 1-4)
-  paxMinusBtn.addEventListener('click', () => {
-    if (state.passengers > 1) {
-      state.passengers--;
-      paxDisplay.textContent = state.passengers;
-      render();
-    }
-  });
+  if (paxMinusBtn) {
+    paxMinusBtn.addEventListener('click', () => {
+      if (state.passengers > 1) {
+        state.passengers--;
+        paxDisplay.textContent = state.passengers;
+        render();
+      }
+    });
+  }
 
-  paxPlusBtn.addEventListener('click', () => {
-    if (state.passengers < 4) {
-      state.passengers++;
-      paxDisplay.textContent = state.passengers;
-      render();
-    }
-  });
+  if (paxPlusBtn) {
+    paxPlusBtn.addEventListener('click', () => {
+      if (state.passengers < 4) {
+        state.passengers++;
+        paxDisplay.textContent = state.passengers;
+        render();
+      }
+    });
+  }
 
   // Event Listeners - Base Fare & Wallet Balance
-  baseFareInput.addEventListener('input', (e) => {
-    state.baseFare = Math.max(0, parseFloat(e.target.value) || 0);
-    render();
-  });
+  if (baseFareInput) {
+    baseFareInput.addEventListener('input', (e) => {
+      state.baseFare = Math.max(0, parseFloat(e.target.value) || 0);
+      render();
+    });
+  }
 
-  walletBalInput.addEventListener('input', (e) => {
-    state.currentWalletBal = Math.max(0, parseFloat(e.target.value) || 0);
-    render();
+  if (walletBalInput) {
+    walletBalInput.addEventListener('input', (e) => {
+      state.currentWalletBal = Math.max(0, parseFloat(e.target.value) || 0);
+      render();
+    });
+  }
+
+  // Event Listeners - Quick Fare Chips
+  quickChips.forEach(chip => {
+    chip.addEventListener('click', () => {
+      const fareVal = chip.dataset.fare;
+      if (fareVal && baseFareInput) {
+        baseFareInput.value = fareVal;
+        baseFareInput.dispatchEvent(new Event('input', { bubbles: true }));
+      }
+    });
   });
 
   // Event Listeners - Travel Insurance
-  insuranceToggle.addEventListener('change', (e) => {
-    state.optInsurance = e.target.checked;
-    render();
-  });
+  if (insuranceToggle) {
+    insuranceToggle.addEventListener('change', (e) => {
+      state.optInsurance = e.target.checked;
+      render();
+    });
+  }
 
   // Event Listener - Copy Top-Up Amount Button
   if (copyBtn) {
@@ -200,7 +232,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Toast Function
   function showToast(msg) {
     if (!toastNotice) return;
-    toastNotice.textContent = '✓ ' + msg;
+    toastNotice.textContent = msg;
     toastNotice.classList.add('show');
     setTimeout(() => {
       toastNotice.classList.remove('show');
@@ -212,7 +244,9 @@ document.addEventListener('DOMContentLoaded', () => {
   faqQuestions.forEach(btn => {
     btn.addEventListener('click', () => {
       const item = btn.closest('.faq-item');
-      item.classList.toggle('open');
+      if (item) {
+        item.classList.toggle('open');
+      }
     });
   });
 
