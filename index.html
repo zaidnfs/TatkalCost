@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tatkal Ticket Cost & IRCTC eWallet Top-Up Estimator | Live Fare Calculator</title>
+  <meta name="description" content="Calculate the exact total payable for Indian Railways Tatkal tickets, find the precise IRCTC eWallet top-up amount needed, and compare payment gateway charges across UPI, Cards, and Net Banking.">
+  <meta name="keywords" content="tatkal ticket cost, irctc ewallet top up calculator, irctc convenience fee, tatkal charges per class, irctc payment gateway charges, tatkal booking time">
+  <link rel="canonical" href="https://tatkalcost.in/">
+
+  <!-- Open Graph / Social Meta -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Tatkal Ticket Cost & IRCTC eWallet Top-Up Estimator">
+  <meta property="og:description" content="Prevent Tatkal booking failure. Calculate the exact eWallet top-up amount needed including convenience fees and 18% GST before 10 AM / 11 AM.">
+  <meta property="og:url" content="https://tatkalcost.in/">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/responsive.css">
+
+  <!-- Structured Data (JSON-LD) for SEO -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Tatkal Ticket Cost & eWallet Estimator",
+    "url": "https://tatkalcost.in/",
+    "applicationCategory": "UtilityApplication",
+    "operatingSystem": "All",
+    "description": "Calculates real-world Tatkal ticket costs, IRCTC convenience fees, and exact eWallet deposit requirements for Indian Railways bookings.",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "INR"
+    }
+  }
+  </script>
+</head>
+<body>
+
+  <!-- Site Navigation Header -->
+  <header class="site-header">
+    <div class="container nav-wrap">
+      <a href="index.html" class="brand-logo" aria-label="TatkalCost Home">
+        <div class="brand-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="4" y="3" width="16" height="16" rx="2"></rect>
+            <path d="M4 11h16"></path>
+            <path d="M12 3v8"></path>
+            <path d="m8 19-2 3"></path>
+            <path d="m18 22-2-3"></path>
+            <circle cx="8" cy="15" r="1"></circle>
+            <circle cx="16" cy="15" r="1"></circle>
+          </svg>
+        </div>
+        <span>TatkalCost<span class="brand-badge">Utility</span></span>
+      </a>
+
+      <div class="nav-actions">
+        <div class="ist-pill" title="Synchronized Indian Standard Time">
+          <span class="ist-dot"></span>
+          <span id="ist-clock">Loading IST...</span>
+        </div>
+        <a href="#payment-matrix" class="nav-link">Fee Comparison</a>
+        <a href="#ewallet-guide" class="nav-link">eWallet Guide</a>
+        <a href="#faq-section" class="nav-link">FAQs</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Live Tatkal Countdown Banner -->
+  <div class="countdown-banner" role="region" aria-label="Tatkal Opening Status">
+    <div class="container countdown-content">
+      <span id="tatkal-status-tag" class="countdown-tag tag-waiting">⏱ COUNTDOWN</span>
+      <span id="tatkal-countdown-digits" class="countdown-digits">Calculating Tatkal opening window...</span>
+    </div>
+  </div>
+
+  <main class="container">
+    <!-- Hero Introduction -->
+    <section class="hero-section">
+      <div class="hero-pill">
+        <span>⚡ 100% Free Client-Side Utility</span>
+        <span>•</span>
+        <span>Verified Railway Rules</span>
+      </div>
+      <h1 class="hero-title">
+        Tatkal Ticket Cost & <br><span class="text-gradient">IRCTC eWallet Top-Up</span> Estimator
+      </h1>
+      <p class="hero-subtitle">
+        Never face payment failure at the 10:00 AM / 11:00 AM checkout screen again. Calculate exact fees, 18% GST, and the precise eWallet recharge amount needed in seconds.
+      </p>
+    </section>
+
+    <!-- Main Calculator Grid -->
+    <div class="calculator-grid">
+      <!-- Input Controls Card -->
+      <section class="app-card" aria-labelledby="calc-input-heading">
+        <div class="card-title-wrap">
+          <div>
+            <h2 id="calc-input-heading" class="card-title">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" color="#3b82f6">
+                <path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1Z"></path>
+                <path d="M14 8H8"></path>
+                <path d="M16 12H8"></path>
+                <path d="M13 16H8"></path>
+              </svg>
+              Booking Parameters
+            </h2>
+            <p class="card-subtitle">Values from IRCTC availability screen</p>
+          </div>
+        </div>
+
+        <!-- 1. Travel Class Selector -->
+        <div class="form-group">
+          <label class="form-label">
+            Class of Travel
+            <span class="label-help">(Determines Convenience Fee tier)</span>
+          </label>
+          <div class="class-pills">
+            <div>
+              <input type="radio" id="class-2s" name="travel_class" value="2S" class="class-pill-input">
+              <label for="class-2s" class="class-pill-label">
+                <span class="pill-code">2S</span>
+                <span class="pill-type">2nd Seat</span>
+              </label>
+            </div>
+            <div>
+              <input type="radio" id="class-sl" name="travel_class" value="SL" class="class-pill-input">
+              <label for="class-sl" class="class-pill-label">
+                <span class="pill-code">SL</span>
+                <span class="pill-type">Sleeper</span>
+              </label>
+            </div>
+            <div>
+              <input type="radio" id="class-3e" name="travel_class" value="3E" class="class-pill-input">
+              <label for="class-3e" class="class-pill-label">
+                <span class="pill-code">3E</span>
+                <span class="pill-type">3A Econ</span>
+              </label>
+            </div>
+            <div>
+              <input type="radio" id="class-3a" name="travel_class" value="3A" class="class-pill-input" checked>
+              <label for="class-3a" class="class-pill-label">
+                <span class="pill-code">3A</span>
+                <span class="pill-type">3 Tier AC</span>
+              </label>
+            </div>
+            <div>
+              <input type="radio" id="class-2a" name="travel_class" value="2A" class="class-pill-input">
+              <label for="class-2a" class="class-pill-label">
+                <span class="pill-code">2A</span>
+                <span class="pill-type">2 Tier AC</span>
+              </label>
+            </div>
+            <div>
+              <input type="radio" id="class-cc" name="travel_class" value="CC" class="class-pill-input">
+              <label for="class-cc" class="class-pill-label">
+                <span class="pill-code">CC</span>
+                <span class="pill-type">Chair Car</span>
+              </label>
+            </div>
+            <div>
+              <input type="radio" id="class-ec" name="travel_class" value="EC" class="class-pill-input">
+              <label for="class-ec" class="class-pill-label">
+                <span class="pill-code">EC</span>
+                <span class="pill-type">Exec CC</span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2. Passenger Stepper -->
+        <div class="form-group">
+          <label class="form-label">
+            Number of Passengers
+            <span class="label-help">(Max 4 per Tatkal PNR)</span>
+          </label>
+          <div class="passenger-stepper">
+            <button type="button" id="btn-pax-minus" class="step-btn" aria-label="Decrease passenger count">−</button>
+            <span id="pax-count-display" class="step-value">1</span>
+            <button type="button" id="btn-pax-plus" class="step-btn" aria-label="Increase passenger count">+</button>
+          </div>
+        </div>
+
+        <!-- 3. Base Tatkal Fare Input -->
+        <div class="form-group">
+          <label for="base-fare-input" class="form-label">
+            Tatkal Fare Shown on IRCTC (Per Person)
+            <span class="label-help">(₹ base fare shown in train list)</span>
+          </label>
+          <div class="input-with-prefix">
+            <span class="currency-prefix">₹</span>
+            <input type="number" id="base-fare-input" class="text-input" value="1950" min="0" step="10" placeholder="e.g. 1950" required>
+          </div>
+        </div>
+
+        <!-- 4. Current eWallet Balance Input -->
+        <div class="form-group">
+          <label for="wallet-bal-input" class="form-label">
+            Your Current IRCTC eWallet Balance
+            <span class="label-help">(Optional, leave 0 if empty)</span>
+          </label>
+          <div class="input-with-prefix">
+            <span class="currency-prefix">₹</span>
+            <input type="number" id="wallet-bal-input" class="text-input" value="0" min="0" step="50" placeholder="0">
+          </div>
+        </div>
+
+        <!-- 5. Travel Insurance Checkbox -->
+        <div class="form-group">
+          <label class="checkbox-wrap">
+            <input type="checkbox" id="insurance-toggle" class="custom-checkbox" checked>
+            <div>
+              <span class="checkbox-text">Opt for Travel Insurance</span>
+              <span class="checkbox-subtext">(₹0.45 per passenger, inclusive of tax)</span>
+            </div>
+          </label>
+        </div>
+      </section>
+
+      <!-- Results & Breakdown Card -->
+      <section class="app-card" aria-labelledby="calc-output-heading">
+        <div class="card-title-wrap">
+          <div>
+            <h2 id="calc-output-heading" class="card-title">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" color="#10b981">
+                <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+                <path d="M6 10h12"></path>
+                <path d="M10 14h8"></path>
+              </svg>
+              eWallet Estimation
+            </h2>
+            <p class="card-subtitle">Exact top-up & complete fee audit</p>
+          </div>
+        </div>
+
+        <!-- Hero Top-Up Pill Box -->
+        <div class="result-hero-box">
+          <div class="result-hero-label">Recommended eWallet Top-Up</div>
+          <div id="res-topup-amount" class="result-hero-amount">₹2,000</div>
+          <div id="res-topup-note" class="result-hero-note">Shortfall is ₹1,997.65. Rounded to nearest valid ₹100 deposit slab.</div>
+          <div class="copy-btn-wrap">
+            <button type="button" id="copy-amount-btn" class="btn-primary" aria-label="Copy top-up amount">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+              </svg>
+              Copy Amount
+            </button>
+          </div>
+        </div>
+
+        <!-- Dynamic Context Alert -->
+        <div id="res-alert-box" class="alert-box alert-warning">
+          💡 <strong>Top-Up Advice:</strong> Deposit via UPI on IRCTC to avoid payment gateway fees during eWallet recharge.
+        </div>
+
+        <!-- Granular Breakdown Table -->
+        <h3 style="font-size:0.9375rem;font-weight:700;margin-top:1.5rem;color:var(--text-main);">Cost Itemization</h3>
+        <table class="breakdown-table">
+          <tbody>
+            <tr>
+              <td>Ticket Fare (<span id="breakdown-pax-count">1</span> passenger)</td>
+              <td id="breakdown-ticket-fare">₹1,950.00</td>
+            </tr>
+            <tr>
+              <td>Optional Travel Insurance</td>
+              <td id="breakdown-insurance">₹0.45</td>
+            </tr>
+            <tr>
+              <td>IRCTC Convenience Fee (Non-UPI + 18% GST)</td>
+              <td id="breakdown-convenience-fee">₹35.40</td>
+            </tr>
+            <tr>
+              <td>IRCTC eWallet Transaction Fee (₹10 + 18% GST)</td>
+              <td id="breakdown-wallet-fee">₹11.80</td>
+            </tr>
+            <tr class="total-row">
+              <td>Total Payable on eWallet</td>
+              <td id="breakdown-total-payable">₹1,997.65</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+    </div>
+
+    <!-- Multi-Payment Mode Comparison Section -->
+    <section id="payment-matrix" class="editorial-hub">
+      <div class="section-header-wrap">
+        <h2 class="section-title">Payment Mode Cost & Speed Matrix</h2>
+        <p class="section-subtitle">
+          How eWallet compares against UPI, RuPay, Credit Cards, and Net Banking for this ticket.
+        </p>
+      </div>
+
+      <div class="matrix-table-wrap">
+        <table class="matrix-table">
+          <thead>
+            <tr>
+              <th>Payment Option</th>
+              <th>Total You Pay</th>
+              <th>Extra Charges</th>
+              <th>Tatkal Recommendation</th>
+            </tr>
+          </thead>
+          <tbody id="matrix-tbody">
+            <!-- Dynamically populated by js/app.js -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Comprehensive Editorial Guides (AdSense Quality Hub) -->
+    <article id="ewallet-guide" class="editorial-hub">
+      <div class="section-header-wrap">
+        <h2 class="section-title">The Essential IRCTC Tatkal & eWallet Handbook</h2>
+        <p class="section-subtitle">
+          Everything you need to know about fees, quotas, Aadhaar rules, and refund protection.
+        </p>
+      </div>
+
+      <div class="guide-grid">
+        <!-- Guide 1: eWallet Master Guide -->
+        <div class="guide-card">
+          <h3>📘 How the IRCTC eWallet Works</h3>
+          <p>
+            The IRCTC eWallet is a closed-system prepaid payment instrument (PPI) designed for lightning-fast railway checkout by eliminating the bank OTP / payment gateway redirection step.
+          </p>
+          <ul class="guide-list">
+            <li><strong>One-time Registration:</strong> ₹50 + 18% GST (₹59.00), non-refundable. Requires Aadhaar and PAN verification.</li>
+            <li><strong>Per-Booking Charge:</strong> ₹10 + 18% GST (₹11.80) per transaction.</li>
+            <li><strong>Deposit Rules:</strong> Minimum recharge is ₹100, maximum wallet balance cap is ₹10,000.</li>
+            <li><strong>Zero Top-Up Fees:</strong> Always deposit money into your eWallet using <strong>UPI</strong>. Using Net Banking or Credit Cards to load the wallet may trigger payment gateway surcharges.</li>
+            <li><strong>Balance Recovery:</strong> Balance cannot be withdrawn as cash directly. However, under official Ministry directives, closing your eWallet account transfers unspent funds back to your linked bank account.</li>
+          </ul>
+        </div>
+
+        <!-- Guide 2: Tatkal Timings & Rules -->
+        <div class="guide-card">
+          <h3>⏱️ Tatkal Booking Rules & Timings</h3>
+          <p>
+            Tatkal reservations open exactly <strong>one day in advance</strong> of train journey date from the train originating station:
+          </p>
+          <ul class="guide-list">
+            <li><strong>10:00 AM IST:</strong> AC Classes open (1A has no Tatkal; covers 2A, 3A, 3E, CC, EC).</li>
+            <li><strong>11:00 AM IST:</strong> Non-AC Classes open (Sleeper and Second Sitting 2S).</li>
+            <li><strong>Agent Restriction:</strong> Authorised railway travel agents are barred from booking during the first 30 minutes (10:00 to 10:30 AM and 11:00 to 11:30 AM) to prioritize direct passengers.</li>
+            <li><strong>Max 4 Passengers:</strong> Unlike general reservations which permit 6 passengers, a Tatkal ticket allows a maximum of 4 passengers per PNR.</li>
+            <li><strong>Compulsory Aadhaar OTP:</strong> User profiles must be Aadhaar-verified on IRCTC to book during the peak Tatkal opening window.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Verified Fare Slabs Table -->
+      <section class="guide-card" style="margin-bottom:3rem;">
+        <h3>📊 Official Railway Board Tatkal Charge Slabs</h3>
+        <p>
+          Tatkal charges are fixed at 10% of basic fare for Second Sitting (2S) and 30% of basic fare for all other classes, capped between the statutory minimum and maximum limits:
+        </p>
+        <div class="fare-table-wrap">
+          <table class="fare-table">
+            <thead>
+              <tr>
+                <th>Class</th>
+                <th>Rate (% of Base)</th>
+                <th>Minimum ₹</th>
+                <th>Maximum ₹</th>
+                <th>Distance Restriction</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>2S (Second Sitting)</strong></td>
+                <td>10%</td>
+                <td>₹10</td>
+                <td>₹15</td>
+                <td>100 km</td>
+              </tr>
+              <tr>
+                <td><strong>SL (Sleeper)</strong></td>
+                <td>30%</td>
+                <td>₹100</td>
+                <td>₹200</td>
+                <td>500 km</td>
+              </tr>
+              <tr>
+                <td><strong>CC (AC Chair Car)</strong></td>
+                <td>30%</td>
+                <td>₹125</td>
+                <td>₹225</td>
+                <td>250 km</td>
+              </tr>
+              <tr>
+                <td><strong>3E (AC 3-Tier Economy)</strong></td>
+                <td>30%</td>
+                <td>₹300</td>
+                <td>₹400</td>
+                <td>500 km</td>
+              </tr>
+              <tr>
+                <td><strong>3A (AC 3-Tier)</strong></td>
+                <td>30%</td>
+                <td>₹300</td>
+                <td>₹400</td>
+                <td>500 km</td>
+              </tr>
+              <tr>
+                <td><strong>2A (AC 2-Tier)</strong></td>
+                <td>30%</td>
+                <td>₹400</td>
+                <td>₹500</td>
+                <td>500 km</td>
+              </tr>
+              <tr>
+                <td><strong>EC (Executive Class)</strong></td>
+                <td>30%</td>
+                <td>₹400</td>
+                <td>₹500</td>
+                <td>250 km</td>
+              </tr>
+              <tr>
+                <td><strong>1A (First AC)</strong></td>
+                <td>—</td>
+                <td>—</td>
+                <td>—</td>
+                <td>Tatkal Not Offered</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p style="font-size:0.8125rem;color:var(--text-dim);">
+          *Note: Premium Tatkal uses dynamic algorithmic pricing that increases with demand and cannot be pre-computed with fixed formula tables.
+        </p>
+      </section>
+
+      <!-- FAQ Accordion -->
+      <section id="faq-section" class="faq-section">
+        <div class="section-header-wrap">
+          <h2 class="section-title">Frequently Asked Questions</h2>
+          <p class="section-subtitle">Clarifications on convenience fees, payment failures, and refunds.</p>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">
+            <span>Why did my IRCTC eWallet Tatkal booking fail?</span>
+            <span class="faq-icon">▼</span>
+          </button>
+          <div class="faq-answer">
+            The most common cause is having insufficient funds by just a few rupees. Many passengers top up only the ticket fare (e.g., ₹1,950), forgetting that IRCTC adds ₹35.40 in convenience fees and ₹11.80 for the eWallet transaction. At the final screen, the total is ₹1,997.20. IRCTC does not allow mid-session wallet top-ups, causing instant transaction failure and seat loss.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">
+            <span>Is the IRCTC Convenience Fee charged per passenger or per ticket?</span>
+            <span class="faq-icon">▼</span>
+          </button>
+          <div class="faq-answer">
+            The IRCTC convenience fee is charged <strong>strictly per transaction (per PNR)</strong>, not per passenger. Whether you book for 1 passenger or 4 passengers on the same ticket, you pay the convenience fee only once (₹23.60 via UPI or ₹35.40 via Non-UPI/eWallet for AC classes).
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">
+            <span>Can I get a refund if I cancel a confirmed Tatkal ticket?</span>
+            <span class="faq-icon">▼</span>
+          </button>
+          <div class="faq-answer">
+            As a standard rule, <strong>no refund</strong> is granted on the cancellation of confirmed Tatkal tickets. Full fare refunds (less clerkage) are only issued under special operational circumstances, such as: train cancelled by railways, train running more than 3 hours late at journey originating station, or train diverted and the passenger chooses not to travel.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question">
+            <span>Is IRCTC eWallet cheaper than UPI?</span>
+            <span class="faq-icon">▼</span>
+          </button>
+          <div class="faq-answer">
+            No, the eWallet is actually more expensive per booking. While UPI attracts a convenience fee of ₹11.80 (Non-AC) or ₹23.60 (AC) with ₹0 gateway fee, eWallet attracts the higher Non-UPI convenience fee (₹17.70 or ₹35.40) PLUS a ₹11.80 eWallet fee. Passengers use eWallet purely for <strong>speed and reliability</strong>, avoiding bank OTP delays during the intense 2-minute Tatkal window.
+          </div>
+        </div>
+      </section>
+    </article>
+  </main>
+
+  <!-- Interactive Toast Feedback -->
+  <div id="toast-notice" class="toast-notice" role="alert" aria-live="polite">
+    ✓ Copied to clipboard!
+  </div>
+
+  <!-- Site Footer & Legal Disclaimers -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-disclaimer-box">
+        <strong>Statutory Legal Disclaimer:</strong> TatkalCost is an independent web utility and informational reference created to help railway passengers calculate ticket expenses. This website is <strong>NOT</strong> affiliated, associated, authorized, endorsed by, or in any way officially connected with Indian Railway Catering and Tourism Corporation (IRCTC), the Ministry of Railways, or the Centre for Railway Information Systems (CRIS). This tool does not book tickets, store credentials, or automate transactions. All official bookings must be conducted on <a href="https://www.irctc.co.in" target="_blank" rel="noopener noreferrer" style="color:#60a5fa;">irctc.co.in</a>.
+      </div>
+
+      <div class="footer-nav">
+        <div>
+          © 2026 TatkalCost. Built with zero tracking cookies and client-side privacy.
+        </div>
+        <div class="footer-links">
+          <a href="privacy.html">Privacy Policy</a>
+          <a href="terms.html">Terms of Service</a>
+          <a href="contact.html">Contact Us</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/constants.js"></script>
+  <script src="js/calculator.js"></script>
+  <script src="js/countdown.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

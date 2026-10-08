@@ -1,0 +1,125 @@
+/**
+ * responsive.css - Media Queries & Mobile Optimizations
+ * Mobile-first adjustments for small screens (375px), tablets (768px), and desktops.
+ */
+
+/* Tablets & Small Desktops (max-width: 960px) */
+@media (max-width: 960px) {
+  .calculator-grid {
+    grid-template-columns: 1fr;
+    gap: 1.75rem;
+  }
+
+  .guide-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+}
+
+/* Mobile Devices (max-width: 640px) */
+@media (max-width: 640px) {
+  .container {
+    padding: 0 1rem;
+  }
+
+  .site-header {
+    height: auto;
+  }
+
+  .nav-wrap {
+    height: 3.75rem;
+  }
+
+  .brand-logo {
+    font-size: 1.1rem;
+  }
+
+  .brand-badge {
+    display: none;
+  }
+
+  .ist-pill {
+    padding: 0.3rem 0.65rem;
+    font-size: 0.75rem;
+  }
+
+  .hero-section {
+    padding: 2rem 0 1.5rem;
+  }
+
+  .hero-title {
+    font-size: 1.75rem;
+  }
+
+  .hero-subtitle {
+    font-size: 0.9375rem;
+  }
+
+  .app-card {
+    padding: 1.25rem;
+    border-radius: var(--radius-lg);
+  }
+
+  .class-pills {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.35rem;
+  }
+
+  .class-pill-label {
+    padding: 0.5rem 0.15rem;
+  }
+
+  .pill-code {
+    font-size: 0.875rem;
+  }
+
+  .pill-type {
+    font-size: 0.625rem;
+  }
+
+  .passenger-stepper {
+    max-width: 100%;
+  }
+
+  .result-hero-box {
+    padding: 1.25rem;
+  }
+
+  .result-hero-amount {
+    font-size: 2.25rem;
+  }
+
+  .section-title {
+    font-size: 1.35rem;
+  }
+
+  .matrix-table th, .matrix-table td {
+    padding: 0.75rem 0.875rem;
+    font-size: 0.8125rem;
+  }
+
+  .footer-nav {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .footer-links {
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .toast-notice {
+    bottom: 1rem;
+    right: 1rem;
+    left: 1rem;
+    justify-content: center;
+  }
+}
+
+/* Very Small Screens (max-width: 380px) */
+@media (max-width: 380px) {
+  .class-pills {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

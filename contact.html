@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact & Feedback | Tatkal Ticket Cost Estimator</title>
+  <meta name="description" content="Contact the TatkalCost team for questions, feedback, or fee schedule updates.">
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="container nav-wrap">
+      <a href="index.html" class="brand-logo">
+        <div class="brand-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+            <rect x="4" y="3" width="16" height="16" rx="2"></rect>
+            <path d="M4 11h16"></path>
+          </svg>
+        </div>
+        <span>TatkalCost</span>
+      </a>
+      <div class="nav-actions">
+        <a href="index.html" class="nav-link">← Back to Calculator</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="container" style="padding-top: 3rem; padding-bottom: 5rem; max-width: 680px;">
+    <h1 style="font-size: 2.25rem; font-weight: 800; margin-bottom: 0.75rem;">Contact & Feedback</h1>
+    <p style="color: var(--text-muted); margin-bottom: 2.5rem;">
+      Noticed an updated railway circular or payment gateway fee revision? Have ideas to improve the estimator? Let us know!
+    </p>
+
+    <div class="app-card">
+      <form id="contact-form" onsubmit="event.preventDefault(); document.getElementById('contact-success').style.display='block'; this.reset();">
+        <div class="form-group">
+          <label for="contact-name" class="form-label">Your Name</label>
+          <input type="text" id="contact-name" class="text-input" style="padding-left:1rem;" placeholder="e.g. Rahul Sharma" required>
+        </div>
+
+        <div class="form-group">
+          <label for="contact-email" class="form-label">Email Address</label>
+          <input type="email" id="contact-email" class="text-input" style="padding-left:1rem;" placeholder="name@example.com" required>
+        </div>
+
+        <div class="form-group">
+          <label for="contact-subject" class="form-label">Inquiry Topic</label>
+          <select id="contact-subject" class="text-input" style="padding-left:1rem; cursor:pointer;" required>
+            <option value="rate_update">Fee Schedule / Rate Update</option>
+            <option value="feature">Feature Suggestion</option>
+            <option value="bug">Calculation Discrepancy</option>
+            <option value="partnership">Partnership / Advertising</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="contact-message" class="form-label">Message / Details</label>
+          <textarea id="contact-message" class="text-input" style="padding-left:1rem; height: 130px; font-family: var(--font-sans); font-size: 0.9375rem;" placeholder="Describe your query or provide circular links..." required></textarea>
+        </div>
+
+        <div id="contact-success" class="alert-box alert-success" style="display: none; margin-bottom: 1.5rem;">
+          ✓ Thank you! Your feedback has been received. We review railway circular updates promptly.
+        </div>
+
+        <button type="submit" class="btn-primary" style="width: 100%; border-radius: var(--radius-md); padding: 0.85rem;">
+          Send Feedback
+        </button>
+      </form>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-nav">
+      <div>© 2026 TatkalCost. All rights reserved.</div>
+      <div class="footer-links">
+        <a href="index.html">Calculator</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms of Service</a>
+        <a href="contact.html">Contact Us</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
